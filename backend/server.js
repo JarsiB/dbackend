@@ -181,7 +181,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-  "https://dfrontend-k9hr.vercel.app",
+  "dfrontend-hydr.vercel.app",
 ];
 
 app.use(
