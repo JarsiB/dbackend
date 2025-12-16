@@ -182,7 +182,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:3004",
-  "nimble-dragon-4b8aa1.netlify.app",
+  "frontend-qro4.vercel.app",
 ];
 
 app.use(
