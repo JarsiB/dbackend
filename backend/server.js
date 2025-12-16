@@ -181,7 +181,7 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-  "dfrontend-3i7s.vercel.app",
+  "nimble-dragon-4b8aa1.netlify.app",
 ];
 
 app.use(
