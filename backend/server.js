@@ -182,7 +182,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:3004",
-  "frontend-ms19.vercel.app",
+  "frontend-gamma-two-91.vercel.app",
 ];
 
 app.use(
