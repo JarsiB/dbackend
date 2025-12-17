@@ -182,7 +182,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:3004",
-  "frontend-86j5.vercel.app",
+  "frontend-smjn.vercel.app",
 ];
 
 app.use(
