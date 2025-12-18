@@ -146,6 +146,49 @@ router.put("/product/:id", async (req, res) => {
   await Product.findByIdAndUpdate(req.params.id, req.body);
   res.json({ message: "Product updated" });
 });
+
+// router.put("/product/:id", async (req, res) => {
+//   try {
+//     const update = {};
+
+//     if (typeof req.body.isSugarFree !== "undefined") {
+//       update.isSugarFree =
+//         req.body.isSugarFree === true || req.body.isSugarFree === "true";
+//     }
+
+//     if (typeof req.body.isSprouted !== "undefined") {
+//       update.isSprouted =
+//         req.body.isSprouted === true || req.body.isSprouted === "true";
+//     }
+
+//     if (typeof req.body.isBestseller !== "undefined") {
+//       update.isBestseller =
+//         req.body.isBestseller === true || req.body.isBestseller === "true";
+//     }
+
+//     // 🔥 ALSO ALLOW NORMAL PRODUCT UPDATE
+//     ["title", "category", "price", "stock", "image", "description"].forEach(
+//       (k) => {
+//         if (req.body[k] !== undefined) update[k] = req.body[k];
+//       }
+//     );
+
+//     const updated = await Product.findByIdAndUpdate(
+//       req.params.id,
+//       { $set: update },
+//       { new: true }
+//     );
+
+//     res.json(updated);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+
+
+
+
+
 // router.put("/product/:id", async (req, res) => {
 //   const updated = await Product.findByIdAndUpdate(
 //     req.params.id,

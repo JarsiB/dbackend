@@ -21,7 +21,7 @@
 
 
 
-
+// main
 
 const mongoose = require("mongoose");
 
@@ -106,6 +106,49 @@ const productSchema = new mongoose.Schema(
 module.exports = mongoose.model("Product", productSchema);
 
 
+// const mongoose = require("mongoose");
+
+// const productSchema = new mongoose.Schema(
+//   {
+//     title: { type: String, required: true, trim: true },
+//     category: { type: String, required: true },
+//     description: { type: String, default: "" },
+//     price: { type: Number, required: true },
+//     stock: { type: Number, default: 0 },
+//     image: { type: String, default: "" },
+
+//     isSugarFree: { type: Boolean, default: false },
+//     isSprouted: { type: Boolean, default: false },
+//     isBestseller: { type: Boolean, default: false },
+
+//     healthGoal: {
+//       type: String,
+//       enum: [
+//         "kids",
+//         "diabetic",
+//         "women-40+",
+//         "senior",
+//         "weight-loss",
+//         "general",
+//       ],
+//       default: "general",
+//     },
+
+//     packSize: {
+//       type: String,
+//       enum: ["100g", "250g", "500g", "1kg"],
+//       default: "250g",
+//     },
+
+//     views: { type: Number, default: 0 },
+//   },
+//   {
+//     timestamps: true,
+//     strict: false, // 🔥 THIS IS THE KEY
+//   }
+// );
+
+// module.exports = mongoose.model("Product", productSchema);
 
 
 
