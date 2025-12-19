@@ -105,6 +105,27 @@ const productSchema = new mongoose.Schema(
 
 module.exports = mongoose.model("Product", productSchema);
 
+// const mongoose = require("mongoose");
+
+// const productSchema = new mongoose.Schema(
+//   {
+//     title: String,
+//     category: String,
+//     description: String,
+//     price: Number,
+//     stock: Number,
+//     image: String,
+
+//     // ✅ ONLY THESE 3 FILTERS
+//     isSugarFree: { type: Boolean, default: false },
+//     isSprouted: { type: Boolean, default: false },
+//     isBestseller: { type: Boolean, default: false },
+//   },
+//   { timestamps: true }
+// );
+
+// module.exports = mongoose.model("Product", productSchema);
+
 
 // const mongoose = require("mongoose");
 

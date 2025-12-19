@@ -204,10 +204,12 @@ app.use(
 
 /* ================= MIDDLEWARE ================= */
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); 
 
 /* ================= ROUTES ================= */
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/uploads", express.static("/tmp/uploads"));
 
 /* ================= CONFIG ================= */
 const PORT = process.env.PORT || 5000;
