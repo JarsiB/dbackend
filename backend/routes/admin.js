@@ -239,7 +239,17 @@ router.delete("/product/:id", async (req, res) => {
   await Product.findByIdAndDelete(req.params.id);
   res.json({ message: "Deleted" });
 });
+const User = require("../models/User");
 
+// ✅ GET ALL CUSTOMERS
+router.get("/users", async (req, res) => {
+  try {
+    const users = await User.find({ role: "user" }).sort({ createdAt: -1 });
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: "Users fetch failed" });
+  }
+});
 // /* GET ALL PRODUCTS */
 // router.get("/products", async (req, res) => {
 //   const products = await Product.find();
