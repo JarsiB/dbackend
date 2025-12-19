@@ -136,6 +136,35 @@ router.get("/categories", async (req, res) => {
   res.json(categories);
 });
 
+// ✅ CREATE CATEGORY
+router.post("/categories", async (req, res) => {
+  try {
+    const category = new Category({
+      title: req.body.title,
+      description: req.body.description,
+    });
+
+    await category.save();
+    res.status(201).json(category);
+  } catch (err) {
+    res.status(500).json({ message: "Create category failed" });
+  }
+});
+// ✅ UPDATE CATEGORY
+router.put("/categories/:id", async (req, res) => {
+  try {
+    await Category.findByIdAndUpdate(req.params.id, {
+      title: req.body.title,
+      description: req.body.description,
+    });
+
+    res.json({ message: "Category updated" });
+  } catch (err) {
+    res.status(500).json({ message: "Update category failed" });
+  }
+});
+
+
 // CREATE CATEGORY main
 // router.post("/product", async (req, res) => {
 //   try {
