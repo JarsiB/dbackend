@@ -47,10 +47,18 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
 
+    // phone: {
+    //   type: String,
+    // },
     phone: {
       type: String,
+      unique: true,
     },
 
+    passwordHash: {
+      type: String,
+      required: true,
+    },
     role: {
       type: String,
       enum: ["user", "admin"],
