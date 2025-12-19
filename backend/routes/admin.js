@@ -82,16 +82,39 @@ router.get("/test", (req, res) => {
 });
 
 // ================= DASHBOARD STATS =================
+// router.get("/stats", async (req, res) => {
+//   try {
+//     const totalProducts = await Product.countDocuments();
+//     const activeCategories = await Category.countDocuments();
+//     const bestsellers = await Product.countDocuments({ isBestseller: true });
+
+//     const stockAgg = await Product.aggregate([
+//       { $group: { _id: null, total: { $sum: "$stock" } } },
+//     ]);
+
+//     const totalStock = stockAgg[0]?.total || 0;
+
+//     res.json({
+//       totalProducts,
+//       activeCategories,
+//       bestsellers,
+//       totalStock,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ message: "Stats fetch failed" });
+//   }
+// });
 router.get("/stats", async (req, res) => {
   try {
     const totalProducts = await Product.countDocuments();
     const activeCategories = await Category.countDocuments();
     const bestsellers = await Product.countDocuments({ isBestseller: true });
 
+    const totalUsers = await User.countDocuments({ role: "user" }); // 👈 USERS
+
     const stockAgg = await Product.aggregate([
       { $group: { _id: null, total: { $sum: "$stock" } } },
     ]);
-
     const totalStock = stockAgg[0]?.total || 0;
 
     res.json({
@@ -99,11 +122,13 @@ router.get("/stats", async (req, res) => {
       activeCategories,
       bestsellers,
       totalStock,
+      totalUsers, // 👈 SEND TO FRONTEND
     });
   } catch (err) {
     res.status(500).json({ message: "Stats fetch failed" });
   }
 });
+
 
 // GET ALL CATEGORIES
 router.get("/categories", async (req, res) => {
