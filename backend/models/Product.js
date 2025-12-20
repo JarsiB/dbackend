@@ -23,7 +23,104 @@
 
 // main
 
+// const mongoose = require("mongoose");
+
+// const productSchema = new mongoose.Schema(
+//   {
+//     title: {
+//       type: String,
+//       required: true,
+//       trim: true,
+//     },
+
+//     category: {
+//       type: String,
+//       required: true,
+//     },
+
+//     description: {
+//       type: String,
+//       default: "",
+//     },
+
+//     price: {
+//       type: Number,
+//       required: true,
+//     },
+
+//     stock: {
+//       type: Number,
+//       default: 0,
+//     },
+
+//     image: {
+//       type: String,
+//       default: "",
+//     },
+
+//     /* ⭐ FILTER FIELDS ⭐ */
+
+//     healthGoal: {
+//       type: String,
+//       enum: [
+//         "kids",
+//         "diabetic",
+//         "women-40+",
+//         "senior",
+//         "weight-loss",
+//         "general",
+//       ],
+//       default: "general",
+//     },
+
+//     packSize: {
+//       type: String,
+//       enum: ["100g", "250g", "500g", "1kg"],
+//       default: "250g",
+//     },
+
+//     sugarFree: {
+//       type: Boolean,
+//       default: false,
+//     },
+
+//     sprouted: {
+//       type: Boolean,
+//       default: true,
+//     },
+
+//     isBestseller: {
+//       type: Boolean,
+//       default: false,
+//     },
+
+//     /* OPTIONAL – FUTURE USE */
+//     views: {
+//       type: Number,
+//       default: 0,
+//     },
+//   },
+//   { timestamps: true }
+// );
+
+// module.exports = mongoose.model("Product", productSchema);
 const mongoose = require("mongoose");
+
+const variantSchema = new mongoose.Schema({
+  size: {
+    type: String,
+    enum: ["100g", "250g", "500g", "1kg"],
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  stock: {
+    type: Number,
+    default: 0,
+  },
+});
 
 const productSchema = new mongoose.Schema(
   {
@@ -43,40 +140,14 @@ const productSchema = new mongoose.Schema(
       default: "",
     },
 
-    price: {
-      type: Number,
+    variants: {
+      type: [variantSchema],
       required: true,
-    },
-
-    stock: {
-      type: Number,
-      default: 0,
     },
 
     image: {
       type: String,
       default: "",
-    },
-
-    /* ⭐ FILTER FIELDS ⭐ */
-
-    healthGoal: {
-      type: String,
-      enum: [
-        "kids",
-        "diabetic",
-        "women-40+",
-        "senior",
-        "weight-loss",
-        "general",
-      ],
-      default: "general",
-    },
-
-    packSize: {
-      type: String,
-      enum: ["100g", "250g", "500g", "1kg"],
-      default: "250g",
     },
 
     sugarFree: {
@@ -93,17 +164,94 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-
-    /* OPTIONAL – FUTURE USE */
-    views: {
-      type: Number,
-      default: 0,
-    },
   },
   { timestamps: true }
 );
 
 module.exports = mongoose.model("Product", productSchema);
+
+// const mongoose = require("mongoose");
+
+// const productSchema = new mongoose.Schema(
+//   {
+//     title: {
+//       type: String,
+//       required: true,
+//       trim: true,
+//     },
+
+//     category: {
+//       type: String,
+//       required: true,
+//     },
+
+//     description: {
+//       type: String,
+//       default: "",
+//     },
+
+//     /* ⭐ VARIANT PACK SIZES ⭐ */
+//     variants: [
+//       {
+//         size: {
+//           type: String,
+//           enum: ["100g", "250g", "500g", "1kg"],
+//           required: true,
+//         },
+//         price: {
+//           type: Number,
+//           required: true,
+//         },
+//         stock: {
+//           type: Number,
+//           default: 0,
+//         },
+//       },
+//     ],
+
+//     image: {
+//       type: String,
+//       default: "",
+//     },
+
+//     /* ⭐ FILTER FIELDS ⭐ */
+//     healthGoal: {
+//       type: String,
+//       enum: [
+//         "kids",
+//         "diabetic",
+//         "women-40+",
+//         "senior",
+//         "weight-loss",
+//         "general",
+//       ],
+//       default: "general",
+//     },
+
+//     sugarFree: {
+//       type: Boolean,
+//       default: false,
+//     },
+
+//     sprouted: {
+//       type: Boolean,
+//       default: true,
+//     },
+
+//     isBestseller: {
+//       type: Boolean,
+//       default: false,
+//     },
+
+//     views: {
+//       type: Number,
+//       default: 0,
+//     },
+//   },
+//   { timestamps: true }
+// );
+
+// module.exports = mongoose.model("Product", productSchema);
 
 // const mongoose = require("mongoose");
 
