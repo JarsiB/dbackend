@@ -235,18 +235,48 @@ router.get("/products", async (req, res) => {
   res.json(products);
 });
 
-// ✅ CREATE PRODUCT (FILE UPLOAD)
+// ✅ CREATE PRODUCT (FILE UPLOAD) post1
+// router.post("/product", upload.single("image"), async (req, res) => {
+//   try {
+//     console.log("BODY 👉", req.body);
+//     console.log("FILE 👉", req.file);
+
+//     const product = new Product({
+//       title: req.body.title,
+//       category: req.body.category,
+//       description: req.body.description,
+//       price: Number(req.body.price),
+//       stock: Number(req.body.stock),
+//       sugarFree: req.body.sugarFree === "true",
+//       sprouted: req.body.sprouted === "true",
+//       isBestseller: req.body.isBestseller === "true",
+//       image: req.file ? `/uploads/${req.file.filename}` : "",
+//     });
+
+//     await product.save();
+
+//     res.status(201).json(product);
+//   } catch (err) {
+//     console.error("❌ CREATE PRODUCT ERROR:", err);
+//     res.status(500).json({
+//       message: "Create product failed",
+//       error: err.message,
+//     });
+//   }
+// });
 router.post("/product", upload.single("image"), async (req, res) => {
   try {
-    console.log("BODY 👉", req.body);
-    console.log("FILE 👉", req.file);
+    const variants = JSON.parse(req.body.variants || "[]");
+
+    if (!variants.length) {
+      return res.status(400).json({ message: "Variants required" });
+    }
 
     const product = new Product({
       title: req.body.title,
       category: req.body.category,
       description: req.body.description,
-      price: Number(req.body.price),
-      stock: Number(req.body.stock),
+      variants,
       sugarFree: req.body.sugarFree === "true",
       sprouted: req.body.sprouted === "true",
       isBestseller: req.body.isBestseller === "true",
@@ -254,39 +284,53 @@ router.post("/product", upload.single("image"), async (req, res) => {
     });
 
     await product.save();
-
     res.status(201).json(product);
   } catch (err) {
-    console.error("❌ CREATE PRODUCT ERROR:", err);
-    res.status(500).json({
-      message: "Create product failed",
-      error: err.message,
-    });
+    console.error("CREATE PRODUCT ERROR:", err);
+    res.status(500).json({ message: err.message });
   }
 });
 
 
 
-// ✅ UPDATE PRODUCT
-router.put(
-  "/product/:id",
-  upload.single("image"),
-  async (req, res) => {
-    const updateData = {
-      ...req.body,
-      sugarFree: req.body.sugarFree === "true",
-      sprouted: req.body.sprouted === "true",
-      isBestseller: req.body.isBestseller === "true",
-    };
+// ✅ UPDATE PRODUCT put1
+// router.put(
+//   "/product/:id",
+//   upload.single("image"),
+//   async (req, res) => {
+//     const updateData = {
+//       ...req.body,
+//       sugarFree: req.body.sugarFree === "true",
+//       sprouted: req.body.sprouted === "true",
+//       isBestseller: req.body.isBestseller === "true",
+//     };
 
-    if (req.file) {
-      updateData.image = `/uploads/${req.file.filename}`;
-    }
+//     if (req.file) {
+//       updateData.image = `/uploads/${req.file.filename}`;
+//     }
 
-    await Product.findByIdAndUpdate(req.params.id, updateData);
-    res.json({ message: "Updated" });
+//     await Product.findByIdAndUpdate(req.params.id, updateData);
+//     res.json({ message: "Updated" });
+//   }
+// );
+router.put("/product/:id", upload.single("image"), async (req, res) => {
+  const updateData = {
+    title: req.body.title,
+    category: req.body.category,
+    description: req.body.description,
+    variants: JSON.parse(req.body.variants || "[]"),
+    sugarFree: req.body.sugarFree === "true",
+    sprouted: req.body.sprouted === "true",
+    isBestseller: req.body.isBestseller === "true",
+  };
+
+  if (req.file) {
+    updateData.image = `/uploads/${req.file.filename}`;
   }
-);
+
+  await Product.findByIdAndUpdate(req.params.id, updateData);
+  res.json({ message: "Updated" });
+});
 
 // ✅ DELETE PRODUCT
 router.delete("/product/:id", async (req, res) => {
