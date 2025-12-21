@@ -104,27 +104,59 @@ router.get("/test", (req, res) => {
 //     res.status(500).json({ message: "Stats fetch failed" });
 //   }
 // });
+// router.get("/stats", async (req, res) => {
+//   try {
+//     const totalProducts = await Product.countDocuments();
+//     const activeCategories = await Category.countDocuments();
+//     const bestsellers = await Product.countDocuments({ isBestseller: true });
+
+//     const totalUsers = await User.countDocuments({ role: "user" }); // 👈 USERS
+
+//     const stockAgg = await Product.aggregate([
+//       { $group: { _id: null, total: { $sum: "$stock" } } },
+//     ]);
+//     const totalStock = stockAgg[0]?.total || 0;
+
+//     res.json({
+//       totalProducts,
+//       activeCategories,
+//       bestsellers,
+//       totalStock,
+//       totalUsers, // 👈 SEND TO FRONTEND
+//     });
+//   } catch (err) {
+//     res.status(500).json({ message: "Stats fetch failed" });
+//   }
+// });
 router.get("/stats", async (req, res) => {
   try {
     const totalProducts = await Product.countDocuments();
     const activeCategories = await Category.countDocuments();
     const bestsellers = await Product.countDocuments({ isBestseller: true });
+    const totalUsers = await User.countDocuments({ role: "user" });
 
-    const totalUsers = await User.countDocuments({ role: "user" }); // 👈 USERS
-
+    // 🔥 VARIANT STOCK SUM
     const stockAgg = await Product.aggregate([
-      { $group: { _id: null, total: { $sum: "$stock" } } },
+      { $unwind: "$variants" },
+      {
+        $group: {
+          _id: null,
+          totalStock: { $sum: "$variants.stock" },
+        },
+      },
     ]);
-    const totalStock = stockAgg[0]?.total || 0;
+
+    const totalStock = stockAgg[0]?.totalStock || 0;
 
     res.json({
       totalProducts,
       activeCategories,
       bestsellers,
+      totalUsers,
       totalStock,
-      totalUsers, // 👈 SEND TO FRONTEND
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: "Stats fetch failed" });
   }
 });
