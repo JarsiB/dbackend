@@ -173,6 +173,7 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
+const path = require("path");
 
 const app = express();
 
@@ -209,7 +210,8 @@ app.use(express.urlencoded({ extended: true }));
 /* ================= ROUTES ================= */
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
-app.use("/uploads", express.static("/tmp/uploads"));
+// app.use("/uploads", express.static("/tmp/uploads"));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 /* ================= CONFIG ================= */
 const PORT = process.env.PORT || 5000;
