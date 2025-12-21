@@ -104,6 +104,73 @@
 // );
 
 // module.exports = mongoose.model("Product", productSchema);
+
+// #####33
+// const mongoose = require("mongoose");
+
+// const variantSchema = new mongoose.Schema({
+//   size: {
+//     type: String,
+//     enum: ["100g", "250g", "500g", "1kg"],
+//     required: true,
+//   },
+//   price: {
+//     type: Number,
+//     required: true,
+//   },
+//   stock: {
+//     type: Number,
+//     default: 0,
+//   },
+// });
+
+// const productSchema = new mongoose.Schema(
+//   {
+//     title: {
+//       type: String,
+//       required: true,
+//       trim: true,
+//     },
+
+//     category: {
+//       type: String,
+//       required: true,
+//     },
+
+//     description: {
+//       type: String,
+//       default: "",
+//     },
+
+//     variants: {
+//       type: [variantSchema],
+//       required: true,
+//     },
+
+//     image: {
+//       type: String,
+//       default: "",
+//     },
+
+//     sugarFree: {
+//       type: Boolean,
+//       default: false,
+//     },
+
+//     sprouted: {
+//       type: Boolean,
+//       default: true,
+//     },
+
+//     isBestseller: {
+//       type: Boolean,
+//       default: false,
+//     },
+//   },
+//   { timestamps: true }
+// );
+
+// module.exports = mongoose.model("Product", productSchema);
 const mongoose = require("mongoose");
 
 const variantSchema = new mongoose.Schema({
@@ -112,58 +179,27 @@ const variantSchema = new mongoose.Schema({
     enum: ["100g", "250g", "500g", "1kg"],
     required: true,
   },
-  price: {
-    type: Number,
-    required: true,
-  },
-  stock: {
-    type: Number,
-    default: 0,
-  },
+  price: Number,
+  stock: Number,
 });
 
 const productSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
+    title: { type: String, required: true },
+    category: { type: String, required: true },
+    description: String,
 
-    category: {
-      type: String,
-      required: true,
-    },
-
-    description: {
-      type: String,
-      default: "",
-    },
-
-    variants: {
-      type: [variantSchema],
-      required: true,
-    },
-
+    // 🔥 BASE64 IMAGE
     image: {
-      type: String,
-      default: "",
+      type: String, // base64 string
+      required: true,
     },
 
-    sugarFree: {
-      type: Boolean,
-      default: false,
-    },
+    variants: [variantSchema],
 
-    sprouted: {
-      type: Boolean,
-      default: true,
-    },
-
-    isBestseller: {
-      type: Boolean,
-      default: false,
-    },
+    sugarFree: Boolean,
+    sprouted: Boolean,
+    isBestseller: Boolean,
   },
   { timestamps: true }
 );
