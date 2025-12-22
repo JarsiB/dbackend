@@ -183,7 +183,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
   "http://localhost:3004",
-  "https://dsakiorganicfood.vercel.app/",
+  "https://dsakiorganicfood.vercel.app",
   // "https://frontend-n2jl.vercel.app",
 ];
 
