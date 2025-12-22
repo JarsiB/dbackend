@@ -38,3 +38,8 @@ router.put("/:id/status", async (req, res) => {
 });
 
 module.exports = router;
+// routes/orders.js
+router.delete("/:id", async (req, res) => {
+  await Order.findByIdAndDelete(req.params.id);
+  res.json({ message: "Order deleted" });
+});
